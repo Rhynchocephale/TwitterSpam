@@ -24,26 +24,62 @@ api = tweepy.API(auth)
 
 id_str_to_follow = ["112754792"]
 
-prefixe = ["On sent l'amour du journalisme objectif. ", "Affligeant de bêtise. ", "Osef. ", "Comme si on en avait quoi que ce soit à faire. ", "Lol. ", "Et ça se dit journaliste. ", "Non mais sérieusement. ", "Ça doit être ça, oui. "]
-suffixe = [", torchon.", ", abruti.", ". Tu veux pas la fermer définitivement ?", " stp.", ". SUPPRIIIIIME.", ". C'est incroyable cette mauvaise foi.", ". Tocards."]
+insultes = ["On sent l'amour du journalisme objectif. W.",
+			"Affligeant de bêtise. W.",
+			"Osef. W.",
+			"Comme si on en avait quoi que ce soit à faire. W.",
+			"Lol. W.", 
+			"Et ça se dit journaliste. W.",
+			"Non mais sérieusement. W.",
+			"Ça doit être ça, oui. W.",
+			"W, torchon.",
+			"W, abruti.",
+			"W. Tu veux pas la fermer définitivement ?",
+			"W stp.",
+			"W. W. SUPPRIIIIIME.",
+			"W. C'est incroyable cette mauvaise foi.",
+			"W. Tocards.",
+			"T'es un grand malade, tu le sais, ça ? W.",
+			"Ton article, tu le prends, tu le supprime, et ça ira mieux pour tout le monde.",
+			"W.",
+			"W.",
+			"W.",
+			"À gerber. W.",
+			"Tu veux pas juste supprimer ton article ?",
+			"C'est pas pénalement répréhensible ce genre d'article ? W.",
+			"Ah ouais, carrément. On en est là. W.",
+			"Tu te rends compte de ce que tu écris ? W.",
+			"Mais vous êtes complètement niqués de la tête ma parole. W.",
+			"W. W. W.",
+			"W, pars, et ne reviens jamais.",
+			"J'ai signalé l'article à Twitter. W.",
+			"Ça doit vous coûter cher en avocats tous ces appels à la haine. W.",
+			"W.",
+			"Suppriiiiiiiiime",
+			"Débile. W.",
+			"Tu te rends compte de ce que tu écris ? W, putain.",
+			"Je trouve ça dingue qu'on vous laisse publier ça. W.",
+			"Blaireau. W.",
+			"W, débile.",
+			"Abruti. W.",
+			"W.",
+			"Bien l'appel à la haine ? W.",
+			"Mais bien sûr. W.",
+			"Et on vous laisse dire ça ? W.",
+			"Je ne comprends pas comment on peut encore vous lire. W.",
+			"W ton compte."]
+			
 sondages = ["Pas du tout à charge, tranquille ?", "Un sondage bien neutre comme on les aime.", "Wow. On va certainement atteindre un échantillon représentatif avec ça.", "Vous aviez pas plus biaisé comme question ?", "Je crois que la réponse attendue est dans la question. ", "Même les simples sondages vous les faites comme de la merde."]
 
 def insulte():
-    case = random.randint(0, int( (len(prefixe)+len(suffixe))*1.2 ) )
-    if case < len(suffixe):
-        text = "Supprime" + random.choice(suffixe)
-    elif case < len(suffixe)+len(prefixe):
-        text = random.choice(prefixe) + "Supprime."
-    else:
-        text = "Supprime."
-    return text
+    return random.choice(insultes).replace('W', 'Supprime')
     
 minutes = random.randint(2,58)
 if datetime.date.today().isoweekday() in [6, 7]:
-	wakeUpTime = datetime.time(9 + random.randint(0,1), minutes)
+    wakeUpTime = datetime.time(9 + random.randint(0,1), minutes)
 else:
-	wakeUpTime = datetime.time(7, minutes)
-	
+    wakeUpTime = datetime.time(7, minutes)
+    
 
 class StdOutListener(StreamListener):
 
@@ -63,12 +99,12 @@ class StdOutListener(StreamListener):
         print(status)
 
 if __name__ == '__main__':
-	while True:
-		if datetime.datetime.now().time() > wakeUpTime:
-			break
-		else:
-			time.sleep(60*random.randint(10, 45))
-	
+    while True:
+        if datetime.datetime.now().time() > wakeUpTime:
+            break
+        else:
+            time.sleep(60*random.randint(10, 45))
+    
     listener = StdOutListener()
     twitterStream = Stream(auth, listener)
     twitterStream.filter(follow=id_str_to_follow)
